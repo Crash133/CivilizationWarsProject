@@ -1,15 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlvs86hx7dp5k"]
+[gd_scene load_steps=3 format=3 uid="uid://dlvs86hx7dp5k"]
 
-[ext_resource type="Shader" uid="uid://bwl4tvibw7d40" path="res://Shaders/edgeDetection.gdshader" id="1_bc65n"]
 [ext_resource type="PackedScene" uid="uid://bfy6c07m24gpr" path="res://Scenes/Tree/tree_0.tscn" id="1_fesym"]
-
-[sub_resource type="QuadMesh" id="QuadMesh_wahky"]
-flip_faces = true
-size = Vector2(2, 2)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bme4k"]
-render_priority = 0
-shader = ExtResource("1_bc65n")
+[ext_resource type="Script" uid="uid://cte4jalives85" path="res://addons/sk_fly_camera/src/fly_camera.gd" id="1_wahky"]
 
 [node name="Node3D" type="Node3D" unique_id=1703178044]
 
@@ -34,21 +26,6 @@ render_target_update_mode = 4
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="PixelArtEffectContainer/SubViewport" unique_id=211480091]
 transform = Transform3D(1, 0, 0, 0, 0.9130552, 0.4078366, 0, -0.4078366, 0.9130552, -8.730695, 9.328661, -31.736504)
 
-[node name="CameraRig" type="Node3D" parent="PixelArtEffectContainer/SubViewport" unique_id=442460267]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 11.641319, 5.8454924)
-
-[node name="Camera3D" type="Camera3D" parent="PixelArtEffectContainer/SubViewport/CameraRig" unique_id=286631599]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1176312, -5.9695816, 0.025551796)
-projection = 1
-current = true
-fov = 118.9
-size = 20.0
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PixelArtEffectContainer/SubViewport/CameraRig/Camera3D" unique_id=1691529348]
-extra_cull_margin = 16384.0
-mesh = SubResource("QuadMesh_wahky")
-surface_material_override/0 = SubResource("ShaderMaterial_bme4k")
-
 [node name="Node3D" type="Node3D" parent="PixelArtEffectContainer/SubViewport" unique_id=1240641243]
 
 [node name="tree1" parent="PixelArtEffectContainer/SubViewport/Node3D" unique_id=465612251 instance=ExtResource("1_fesym")]
@@ -59,3 +36,7 @@ transform = Transform3D(0.33993, 0, 0, 0, 0.33993, 0, 0, 0, 0.33993, 3.9395552, 
 
 [node name="tree3" parent="PixelArtEffectContainer/SubViewport/Node3D" unique_id=2043813024 instance=ExtResource("1_fesym")]
 transform = Transform3D(-0.31591457, 0, 0.12550054, 0, 0.33992997, 0, -0.12550054, 0, -0.31591457, -9.142056, 0, 0)
+
+[node name="FlyCamera" type="CharacterBody3D" parent="PixelArtEffectContainer/SubViewport" unique_id=1486002797]
+script = ExtResource("1_wahky")
+metadata/_custom_type_script = "uid://cte4jalives85"
