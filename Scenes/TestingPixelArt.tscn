@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://ds0iswi6mo482"]
+
+[ext_resource type="PackedScene" uid="uid://dlx4fuj75slh6" path="res://Dinossauro.glb" id="1_fesym"]
+[ext_resource type="PackedScene" uid="uid://gv4eut2bdvnr" path="res://tree0.glb" id="2_bc65n"]
+
+[node name="Node3D" type="Node3D" unique_id=1703178044]
+
+[node name="PixelArtEffectContainer" type="SubViewportContainer" parent="." unique_id=253382324]
+top_level = true
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 8
+
+[node name="SubViewport" type="SubViewport" parent="PixelArtEffectContainer" unique_id=1230775314]
+handle_input_locally = false
+size = Vector2i(170, 96)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="PixelArtEffectContainer/SubViewport" unique_id=212224652]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="PixelArtEffectContainer/SubViewport" unique_id=211480091]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8182974, 0.36274672, -4.7683716e-07)
+
+[node name="CameraRig" type="Node3D" parent="PixelArtEffectContainer/SubViewport" unique_id=442460267]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 11.641319, 5.8454924)
+
+[node name="Camera3D" type="Camera3D" parent="PixelArtEffectContainer/SubViewport/CameraRig" unique_id=286631599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.94106364, -3.7278883, -3.934945)
+projection = 1
+current = true
+fov = 118.9
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="PixelArtEffectContainer/SubViewport" unique_id=1082616258]
+
+[node name="Dinossauro" parent="PixelArtEffectContainer/SubViewport/CharacterBody3D" unique_id=2092697917 instance=ExtResource("1_fesym")]
+transform = Transform3D(0.5914432, 0, 0, 0, 0.5914432, 0, 0, 0, 0.5914432, 0, 0, -4.297619)
+
+[node name="tree0" parent="." unique_id=1935231995 instance=ExtResource("2_bc65n")]
+transform = Transform3D(0.13884373, 0, 0, 0, 0.13884373, 0, 0, 0, 0.13884373, 0.9309168, 0.66490126, -4.816324)

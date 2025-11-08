@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dlx4fuj75slh6"
-path="res://.godot/imported/Dinossauro.glb-495aa21086d2ef928b1af8e35b6089ea.scn"
+path="res://.godot/imported/Dinossauro.glb-e643cbbb8da713453436bd9b410c6399.scn"
 
 [deps]
 
-source_file="res://Dinossauro.glb"
-dest_files=["res://.godot/imported/Dinossauro.glb-495aa21086d2ef928b1af8e35b6089ea.scn"]
+source_file="res://Models/Dinossauro.glb"
+dest_files=["res://.godot/imported/Dinossauro.glb-e643cbbb8da713453436bd9b410c6399.scn"]
 
 [params]
 

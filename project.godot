@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Civilization Wars Project"
-run/main_scene="res://TestingPixelArt.tscn"
+run/main_scene="uid://dlvs86hx7dp5k"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 

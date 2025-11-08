@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://bfy6c07m24gpr"]
+
+[ext_resource type="PackedScene" uid="uid://gv4eut2bdvnr" path="res://Models/tree0.glb" id="1_pu8vh"]
+[ext_resource type="Shader" uid="uid://bhp41tvrnmp3l" path="res://Shaders/tree0wood.gdshader" id="2_pu8vh"]
+[ext_resource type="Shader" uid="uid://iw7wsmwg6jfl" path="res://Shaders/tree0leaf.gdshader" id="3_1pfgb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1pfgb"]
+render_priority = 0
+shader = ExtResource("2_pu8vh")
+shader_parameter/texture_scale = 0.5
+shader_parameter/tint_color = Color(1, 0.7, 0.4, 1)
+shader_parameter/light_intensity = 1.0
+shader_parameter/light_smoothness = 1.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3vnj2"]
+render_priority = 1
+shader = ExtResource("3_1pfgb")
+shader_parameter/texture_scale = 1.5
+shader_parameter/tint_color = Color(0.8, 1, 0.8, 1)
+shader_parameter/light_intensity = 1.0
+shader_parameter/light_smoothness = 1.5
+
+[node name="tree0" unique_id=465612251 instance=ExtResource("1_pu8vh")]
+
+[node name="Cylinder" parent="." index="0" unique_id=458435862]
+surface_material_override/0 = SubResource("ShaderMaterial_1pfgb")
+
+[node name="Icosphere_004" parent="." index="1" unique_id=1422022459]
+surface_material_override/0 = SubResource("ShaderMaterial_3vnj2")

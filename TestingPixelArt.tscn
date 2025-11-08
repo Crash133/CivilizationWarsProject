@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://ds0iswi6mo482"]
+[gd_scene load_steps=5 format=3 uid="uid://dlvs86hx7dp5k"]
 
-[ext_resource type="PackedScene" uid="uid://dlx4fuj75slh6" path="res://Dinossauro.glb" id="1_fesym"]
+[ext_resource type="Shader" uid="uid://bwl4tvibw7d40" path="res://Shaders/edgeDetection.gdshader" id="1_bc65n"]
+[ext_resource type="PackedScene" uid="uid://bfy6c07m24gpr" path="res://Scenes/Tree/tree_0.tscn" id="1_fesym"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_wahky"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bme4k"]
+render_priority = 0
+shader = ExtResource("1_bc65n")
 
 [node name="Node3D" type="Node3D" unique_id=1703178044]
 
@@ -13,28 +22,40 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
-stretch_shrink = 8
+stretch_shrink = 4
 
 [node name="SubViewport" type="SubViewport" parent="PixelArtEffectContainer" unique_id=1230775314]
 handle_input_locally = false
-size = Vector2i(170, 96)
+size = Vector2i(340, 192)
 render_target_update_mode = 4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="PixelArtEffectContainer/SubViewport" unique_id=212224652]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="PixelArtEffectContainer/SubViewport" unique_id=211480091]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8182974, 0.36274672, -4.7683716e-07)
+transform = Transform3D(1, 0, 0, 0, 0.9130552, 0.4078366, 0, -0.4078366, 0.9130552, -8.730695, 9.328661, -31.736504)
 
 [node name="CameraRig" type="Node3D" parent="PixelArtEffectContainer/SubViewport" unique_id=442460267]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 7.1280103, 0)
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 11.641319, 5.8454924)
 
 [node name="Camera3D" type="Camera3D" parent="PixelArtEffectContainer/SubViewport/CameraRig" unique_id=286631599]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4406853, -2.4076614, -2.970918)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1176312, -5.9695816, 0.025551796)
 projection = 1
 current = true
 fov = 118.9
+size = 20.0
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="PixelArtEffectContainer/SubViewport" unique_id=1082616258]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PixelArtEffectContainer/SubViewport/CameraRig/Camera3D" unique_id=1691529348]
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_wahky")
+surface_material_override/0 = SubResource("ShaderMaterial_bme4k")
 
-[node name="Dinossauro" parent="PixelArtEffectContainer/SubViewport/CharacterBody3D" unique_id=2092697917 instance=ExtResource("1_fesym")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.297619)
+[node name="Node3D" type="Node3D" parent="PixelArtEffectContainer/SubViewport" unique_id=1240641243]
+
+[node name="tree1" parent="PixelArtEffectContainer/SubViewport/Node3D" unique_id=465612251 instance=ExtResource("1_fesym")]
+transform = Transform3D(0.33993, 0, 0, 0, 0.33993, 0, 0, 0, 0.33993, 0, 0, 0)
+
+[node name="tree2" parent="PixelArtEffectContainer/SubViewport/Node3D" unique_id=22961534 instance=ExtResource("1_fesym")]
+transform = Transform3D(0.33993, 0, 0, 0, 0.33993, 0, 0, 0, 0.33993, 3.9395552, 0, 0)
+
+[node name="tree3" parent="PixelArtEffectContainer/SubViewport/Node3D" unique_id=2043813024 instance=ExtResource("1_fesym")]
+transform = Transform3D(-0.31591457, 0, 0.12550054, 0, 0.33992997, 0, -0.12550054, 0, -0.31591457, -9.142056, 0, 0)
