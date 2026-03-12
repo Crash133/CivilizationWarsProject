@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpjfh8tjnuxy0"]
+
+[ext_resource type="Script" uid="uid://bkpgtirpft3r8" path="res://Scenes/Structures/Structure.gd" id="1_0mxi8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0mxi8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0mxi8"]
+
+[node name="Structure" type="Node3D" unique_id=543610257]
+script = ExtResource("1_0mxi8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1022925174]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=352132988]
+shape = SubResource("BoxShape3D_0mxi8")
+debug_color = Color(0, 0.45423234, 0.5448197, 0.41960785)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1858596142]
+mesh = SubResource("BoxMesh_0mxi8")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1393955677]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0025132, 0)
+pixel_size = 0.02
+billboard = 1
