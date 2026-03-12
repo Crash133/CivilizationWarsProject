@@ -1,16 +1,29 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfy6c07m24gpr"]
+[gd_scene load_steps=7 format=3 uid="uid://bfy6c07m24gpr"]
 
 [ext_resource type="PackedScene" uid="uid://gv4eut2bdvnr" path="res://Models/tree0.glb" id="1_pu8vh"]
-[ext_resource type="Shader" uid="uid://bhp41tvrnmp3l" path="res://Shaders/tree0wood.gdshader" id="2_pu8vh"]
+[ext_resource type="Material" uid="uid://bb43ngplsfis2" path="res://addons/flexible_toon_shader/FlexibleToonMaterial.tres" id="2_3vnj2"]
 [ext_resource type="Shader" uid="uid://iw7wsmwg6jfl" path="res://Shaders/tree0leaf.gdshader" id="3_1pfgb"]
+[ext_resource type="Shader" uid="uid://hvrrt2lob4ih" path="res://addons/flexible_toon_shader/flexible_toon.gdshader" id="3_hm6d1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1pfgb"]
 render_priority = 0
-shader = ExtResource("2_pu8vh")
-shader_parameter/texture_scale = 0.5
-shader_parameter/tint_color = Color(1, 0.7, 0.4, 1)
-shader_parameter/light_intensity = 1.0
-shader_parameter/light_smoothness = 1.5
+next_pass = ExtResource("2_3vnj2")
+shader = ExtResource("3_hm6d1")
+shader_parameter/albedo = Color(0.59, 0.40847665, 0.1711, 1)
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 3
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = false
+shader_parameter/use_specular = false
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.01
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3vnj2"]
 render_priority = 1

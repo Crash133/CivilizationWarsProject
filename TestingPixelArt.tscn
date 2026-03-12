@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dlvs86hx7dp5k"]
+[gd_scene load_steps=4 format=3 uid="uid://ds0iswi6mo482"]
 
-[ext_resource type="PackedScene" uid="uid://bfy6c07m24gpr" path="res://Scenes/Tree/tree_0.tscn" id="1_fesym"]
+[ext_resource type="Script" uid="uid://dketq5kwo5udh" path="res://Scenes/Game.gd" id="1_bme4k"]
 [ext_resource type="Script" uid="uid://cte4jalives85" path="res://addons/sk_fly_camera/src/fly_camera.gd" id="1_wahky"]
+[ext_resource type="PackedScene" uid="uid://dpjfh8tjnuxy0" path="res://Structure.tscn" id="2_bc65n"]
 
 [node name="Node3D" type="Node3D" unique_id=1703178044]
 
@@ -26,17 +27,25 @@ render_target_update_mode = 4
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="PixelArtEffectContainer/SubViewport" unique_id=211480091]
 transform = Transform3D(1, 0, 0, 0, 0.9130552, 0.4078366, 0, -0.4078366, 0.9130552, -8.730695, 9.328661, -31.736504)
 
-[node name="Node3D" type="Node3D" parent="PixelArtEffectContainer/SubViewport" unique_id=1240641243]
+[node name="Game" type="Node3D" parent="PixelArtEffectContainer/SubViewport" unique_id=1283712209]
+script = ExtResource("1_bme4k")
 
-[node name="tree1" parent="PixelArtEffectContainer/SubViewport/Node3D" unique_id=465612251 instance=ExtResource("1_fesym")]
-transform = Transform3D(0.33993, 0, 0, 0, 0.33993, 0, 0, 0, 0.33993, 0, 0, 0)
-
-[node name="tree2" parent="PixelArtEffectContainer/SubViewport/Node3D" unique_id=22961534 instance=ExtResource("1_fesym")]
-transform = Transform3D(0.33993, 0, 0, 0, 0.33993, 0, 0, 0, 0.33993, 3.9395552, 0, 0)
-
-[node name="tree3" parent="PixelArtEffectContainer/SubViewport/Node3D" unique_id=2043813024 instance=ExtResource("1_fesym")]
-transform = Transform3D(-0.31591457, 0, 0.12550054, 0, 0.33992997, 0, -0.12550054, 0, -0.31591457, -9.142056, 0, 0)
-
-[node name="FlyCamera" type="CharacterBody3D" parent="PixelArtEffectContainer/SubViewport" unique_id=1486002797]
+[node name="FlyCamera" type="CharacterBody3D" parent="PixelArtEffectContainer/SubViewport/Game" unique_id=2101088778]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.9654818, 0)
 script = ExtResource("1_wahky")
 metadata/_custom_type_script = "uid://cte4jalives85"
+
+[node name="CameraPivot" type="Node3D" parent="PixelArtEffectContainer/SubViewport/Game/FlyCamera" unique_id=1798289474]
+
+[node name="Camera3D" type="Camera3D" parent="PixelArtEffectContainer/SubViewport/Game/FlyCamera/CameraPivot" unique_id=775038812]
+current = true
+
+[node name="Structure" parent="PixelArtEffectContainer/SubViewport/Game" unique_id=543610257 instance=ExtResource("2_bc65n")]
+faction = 0
+
+[node name="Structure2" parent="PixelArtEffectContainer/SubViewport/Game" unique_id=375181000 instance=ExtResource("2_bc65n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4758673, 0, 0)
+faction = 1
+
+[node name="Structure3" parent="PixelArtEffectContainer/SubViewport/Game" unique_id=991563749 instance=ExtResource("2_bc65n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.6543045)
