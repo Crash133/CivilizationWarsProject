@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="StructureData" load_steps=2 format=3 uid="uid://cpa4pqy3lryln"]
+
+[ext_resource type="Script" uid="uid://6h4fx8xwm1p2" path="res://Scripts/StructureData.gd" id="1_lhpgs"]
+
+[resource]
+script = ExtResource("1_lhpgs")
+nameStructure = "Ximbalaie"
+color = Color(0.9649555, 0.5438947, 0.31256118, 1)
+metadata/_custom_type_script = "uid://6h4fx8xwm1p2"

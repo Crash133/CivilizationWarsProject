@@ -1,0 +1,103 @@
+[gd_scene load_steps=6 format=3 uid="uid://ds0iswi6mo482"]
+
+[ext_resource type="Script" uid="uid://dketq5kwo5udh" path="res://Scripts/Game.gd" id="1_pbw6q"]
+[ext_resource type="Script" uid="uid://cte4jalives85" path="res://addons/sk_fly_camera/src/fly_camera.gd" id="2_v1gob"]
+[ext_resource type="PackedScene" uid="uid://dpjfh8tjnuxy0" path="res://Scenes/Structure.tscn" id="3_jw32o"]
+[ext_resource type="Script" uid="uid://c2fcenksbph7v" path="res://Scripts/UIManager.gd" id="4_50glp"]
+[ext_resource type="Script" uid="uid://m1cbmuif5nlw" path="res://Scripts/StructurePanel.gd" id="5_vy5pj"]
+
+[node name="Main" type="Node3D" unique_id=1703178044]
+
+[node name="PixelArtEffectContainer" type="SubViewportContainer" parent="." unique_id=253382324]
+top_level = true
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 4
+
+[node name="SubViewport" type="SubViewport" parent="PixelArtEffectContainer" unique_id=1230775314]
+handle_input_locally = false
+size = Vector2i(340, 192)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="PixelArtEffectContainer/SubViewport" unique_id=212224652]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="PixelArtEffectContainer/SubViewport" unique_id=211480091]
+transform = Transform3D(1, 0, 0, 0, 0.9130552, 0.4078366, 0, -0.4078366, 0.9130552, -8.730695, 9.328661, -31.736504)
+
+[node name="Game" type="Node3D" parent="PixelArtEffectContainer/SubViewport" unique_id=1283712209]
+script = ExtResource("1_pbw6q")
+
+[node name="FlyCamera" type="CharacterBody3D" parent="PixelArtEffectContainer/SubViewport/Game" unique_id=2101088778]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.9654818, 14.237358)
+script = ExtResource("2_v1gob")
+metadata/_custom_type_script = "uid://cte4jalives85"
+
+[node name="CameraPivot" type="Node3D" parent="PixelArtEffectContainer/SubViewport/Game/FlyCamera" unique_id=1798289474]
+
+[node name="Camera3D" type="Camera3D" parent="PixelArtEffectContainer/SubViewport/Game/FlyCamera/CameraPivot" unique_id=775038812 groups=["MainCamera"]]
+current = true
+
+[node name="Structure" parent="PixelArtEffectContainer/SubViewport/Game" unique_id=543610257 instance=ExtResource("3_jw32o")]
+faction = 1
+
+[node name="Structure4" parent="PixelArtEffectContainer/SubViewport/Game" unique_id=1777112611 instance=ExtResource("3_jw32o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8927145, 0, 6.64828)
+faction = 1
+units = 20
+
+[node name="Structure2" parent="PixelArtEffectContainer/SubViewport/Game" unique_id=375181000 instance=ExtResource("3_jw32o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4758673, 0, 0)
+faction = 2
+
+[node name="Structure3" parent="PixelArtEffectContainer/SubViewport/Game" unique_id=991563749 instance=ExtResource("3_jw32o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.6543045)
+
+[node name="UIManager" type="CanvasLayer" parent="." unique_id=1082570328]
+script = ExtResource("4_50glp")
+
+[node name="StructurePanel" type="Control" parent="UIManager" unique_id=436338732]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_vy5pj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIManager/StructurePanel" unique_id=47144687]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -44.5
+offset_right = 20.0
+offset_bottom = 44.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Name" type="Label" parent="UIManager/StructurePanel/VBoxContainer" unique_id=480850163]
+layout_mode = 2
+
+[node name="Level" type="Label" parent="UIManager/StructurePanel/VBoxContainer" unique_id=597362967]
+layout_mode = 2
+
+[node name="Faction" type="Label" parent="UIManager/StructurePanel/VBoxContainer" unique_id=1519572405]
+layout_mode = 2
+
+[node name="UpgradeButton" type="Button" parent="UIManager/StructurePanel/VBoxContainer" unique_id=1261102838]
+layout_mode = 2
+
+[node name="UnitsLabels" type="Control" parent="UIManager" unique_id=1388768379]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="pressed" from="UIManager/StructurePanel/VBoxContainer/UpgradeButton" to="UIManager/StructurePanel" method="_on_upgrade_button_pressed"]

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6wypkbmkiw60"]
+
+[ext_resource type="Script" uid="uid://18of1aaehx4l" path="res://Scripts/UnitsLabel.gd" id="1_u1rrx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dv27v"]
+font_size = 20
+
+[node name="UnitsLabel" type="Control" unique_id=385410472]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u1rrx")
+
+[node name="Label" type="Label" parent="." unique_id=1645068602]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_dv27v")
