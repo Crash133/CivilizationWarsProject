@@ -23,10 +23,10 @@ func _on_structure_clicked(structure):
 	else:
 		upgradePanel.hide()
 		
-func _on_structure_update(structure):
+func _on_structure_update():
 	upgradePanel.updatePanel()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var viewportSize = camera.get_viewport().size
 	var containerSize = get_node("../PixelArtEffectContainer").size # O tamanho dele na tela
 	var containerPos = get_node("../PixelArtEffectContainer").global_position
@@ -44,11 +44,11 @@ func _process(delta: float) -> void:
 			_update_ui_element_position(label, base.global_position, scaleFactor, containerPos, Vector2(0, -50))
 			label.set_text(str(base.units))
 
-func _update_ui_element_position(element: Control, worldPos: Vector3, scaleFactor: Vector2, containerPos: Vector2, offset: Vector2):
+func _update_ui_element_position(element: Control, worldPos: Vector3, scaleFactor: Vector2, containerPos: Vector2, offsetDir: Vector2):
 	if not camera.is_position_behind(worldPos):
 		element.visible = true
 		var screenPos = camera.unproject_position(worldPos)
 		var finalPos = (screenPos * scaleFactor) + containerPos
-		element.position = finalPos - (element.size / 2) + offset
+		element.position = finalPos - (element.size / 2) + offsetDir
 	else:
 		element.visible = false

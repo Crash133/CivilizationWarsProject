@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://r72ovdaoe5s1"]
+
+[ext_resource type="Script" uid="uid://b1svs4q4h6o23" path="res://Scripts/TargetElipse.gd" id="1_kmp8t"]
+[ext_resource type="Texture2D" uid="uid://dcd5r8t11uj2w" path="res://Sprites/—Pngtree—brush circle creative brush effect_6020152.png" id="2_bt1op"]
+
+[node name="TargetElipse" type="Node3D" unique_id=2131378666]
+script = ExtResource("1_kmp8t")
+
+[node name="Decal" type="Decal" parent="." unique_id=1990672936]
+size = Vector3(2, 2, 1.5)
+texture_albedo = ExtResource("2_bt1op")

@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://c62hti35ocno4"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_mqean"]
+vertices = PackedVector3Array(-14.5, 0.5, -14.5, -14.5, 0.5, 14.5, 14.5, 0.5, 14.5, 14.5, 0.5, -14.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mqean"]
+albedo_color = Color(0.43097836, 0.53, 0.2173, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mqean"]
+material = SubResource("StandardMaterial3D_mqean")
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_mqean"]
+
+[node name="Node3D" type="Node3D" unique_id=602967412]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1702597517]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00062423944, 0, -0.0018546581)
+navigation_mesh = SubResource("NavigationMesh_mqean")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=936419577]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 0, 0)
+mesh = SubResource("PlaneMesh_mqean")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=461534419]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=858098983]
+shape = SubResource("WorldBoundaryShape3D_mqean")

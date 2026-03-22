@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0nv2i20s2ep2"]
+
+[ext_resource type="Script" uid="uid://cuogkwqp2el1p" path="res://Scripts/Troop.gd" id="1_8vntb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8vntb"]
+albedo_color = Color(1, 0.30257958, 0.49971187, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8vntb"]
+material = SubResource("StandardMaterial3D_8vntb")
+
+[sub_resource type="MultiMesh" id="MultiMesh_xydxm"]
+transform_format = 1
+mesh = SubResource("CapsuleMesh_8vntb")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8vntb"]
+
+[node name="Troop" type="Node3D" unique_id=1833349966]
+script = ExtResource("1_8vntb")
+
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="." unique_id=1391912643]
+multimesh = SubResource("MultiMesh_xydxm")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1616918737]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1506516501]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=216947248]
+shape = SubResource("BoxShape3D_8vntb")
+
+[connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]

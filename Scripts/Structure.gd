@@ -1,12 +1,13 @@
 class_name Structure
 extends Node
 
-#@export var data: StructureData
 @export var data: StructureData = preload("res://Scripts/Resources/Caserna.tres")
+@onready var troopsScene = preload("res://Scenes/Troop.tscn") 
 @onready var mesh : MeshInstance3D = $MeshInstance3D
 @export var faction: StructureData.Owner
 @export var units: int = 10
 var level: int = 1
+var activeWave: bool = false
 
 var selected := false
 var originalMaterial : Material
@@ -55,3 +56,12 @@ func update_units(value: int, add: bool, fac: StructureData.Owner):#address this
 				StructureData.Owner.ENEMY: add_to_group("Enemy")
 		var newValue = abs(units - value)
 		units = newValue
+
+func send_troops(target: Node3D):
+	if !activeWave:
+		var value = int(units / 2.0)
+		units -= value
+		var wave = troopsScene.instantiate()
+		get_tree().current_scene.add_child(wave)
+		wave.setup(self.global_position, target, faction, value, self)
+		activeWave = true

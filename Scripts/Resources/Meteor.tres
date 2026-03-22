@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MiracleData" load_steps=4 format=3 uid="uid://cpb1o04kqj71f"]
+
+[ext_resource type="Script" uid="uid://baf4i3bxuxvra" path="res://Scripts/MiracleData.gd" id="1_au2mg"]
+[ext_resource type="Texture2D" uid="uid://b6idhaqvar24b" path="res://Sprites/imgbin_4af2fe87c9036085fb1bf1797b80d68c.png" id="1_c673w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbiiq"]
+atlas = ExtResource("1_c673w")
+
+[resource]
+script = ExtResource("1_au2mg")
+name = "Meteor"
+damage = 1.0
+cooldown = 5
+icon = SubResource("AtlasTexture_lbiiq")
+radius = 3.0
+cost = 50
+metadata/_custom_type_script = "uid://baf4i3bxuxvra"

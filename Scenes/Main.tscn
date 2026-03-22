@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://ds0iswi6mo482"]
+[gd_scene load_steps=11 format=3 uid="uid://ds0iswi6mo482"]
 
 [ext_resource type="Script" uid="uid://dketq5kwo5udh" path="res://Scripts/Game.gd" id="1_pbw6q"]
+[ext_resource type="Script" uid="uid://dtxthnlhxu70n" path="res://Scenes/MiracleManager.gd" id="2_50glp"]
 [ext_resource type="Script" uid="uid://cte4jalives85" path="res://addons/sk_fly_camera/src/fly_camera.gd" id="2_v1gob"]
 [ext_resource type="PackedScene" uid="uid://dpjfh8tjnuxy0" path="res://Scenes/Structure.tscn" id="3_jw32o"]
 [ext_resource type="Script" uid="uid://c2fcenksbph7v" path="res://Scripts/UIManager.gd" id="4_50glp"]
+[ext_resource type="PackedScene" uid="uid://c62hti35ocno4" path="res://Scenes/terrain.tscn" id="4_v1gob"]
 [ext_resource type="Script" uid="uid://m1cbmuif5nlw" path="res://Scripts/StructurePanel.gd" id="5_vy5pj"]
+[ext_resource type="PackedScene" uid="uid://bbu3gbfj80b4l" path="res://Scenes/MiraclesUI.tscn" id="7_jw32o"]
+[ext_resource type="Script" uid="uid://baf4i3bxuxvra" path="res://Scripts/MiracleData.gd" id="9_bmxlf"]
+[ext_resource type="Resource" uid="uid://cpb1o04kqj71f" path="res://Scripts/Resources/Meteor.tres" id="10_4kpch"]
 
 [node name="Main" type="Node3D" unique_id=1703178044]
 
@@ -32,6 +37,9 @@ transform = Transform3D(1, 0, 0, 0, 0.9130552, 0.4078366, 0, -0.4078366, 0.91305
 [node name="Game" type="Node3D" parent="PixelArtEffectContainer/SubViewport" unique_id=1283712209]
 script = ExtResource("1_pbw6q")
 
+[node name="MiracleManager" type="Node3D" parent="PixelArtEffectContainer/SubViewport/Game" unique_id=1565174630]
+script = ExtResource("2_50glp")
+
 [node name="FlyCamera" type="CharacterBody3D" parent="PixelArtEffectContainer/SubViewport/Game" unique_id=2101088778]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.9654818, 14.237358)
 script = ExtResource("2_v1gob")
@@ -56,6 +64,9 @@ faction = 2
 
 [node name="Structure3" parent="PixelArtEffectContainer/SubViewport/Game" unique_id=991563749 instance=ExtResource("3_jw32o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.6543045)
+
+[node name="Terrain" parent="PixelArtEffectContainer/SubViewport/Game" unique_id=602967412 instance=ExtResource("4_v1gob")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4182029, 0)
 
 [node name="UIManager" type="CanvasLayer" parent="." unique_id=1082570328]
 script = ExtResource("4_50glp")
@@ -100,4 +111,8 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="MiracleUI" parent="UIManager" unique_id=1268480569 instance=ExtResource("7_jw32o")]
+avaibleMiracles = Array[ExtResource("9_bmxlf")]([ExtResource("10_4kpch")])
+
 [connection signal="pressed" from="UIManager/StructurePanel/VBoxContainer/UpgradeButton" to="UIManager/StructurePanel" method="_on_upgrade_button_pressed"]
+[connection signal="miracleSelected" from="UIManager/MiracleUI" to="PixelArtEffectContainer/SubViewport/Game" method="_on_miracle_selected"]

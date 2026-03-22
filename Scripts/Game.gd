@@ -1,6 +1,11 @@
 extends Node3D
 
 @onready var camera: Camera3D = $FlyCamera/CameraPivot/Camera3D
+enum interactionMode {SELECT, TARGETING}
+var currentMode = interactionMode.SELECT
+const targetIndicator = preload("res://Scenes/TargetElipse.tscn")
+var activeIndicator = null
+var selectedMiracle: MiracleData
 var selectedStructure = null
 var attackedStructure = null
 
@@ -11,6 +16,7 @@ signal structureUpdated(Structure)
 var aiTimer: Timer
 
 func _ready() -> void:
+	set_process(false)
 	add_to_group("Game")
 	production_loop()
 	ai_enemy()
@@ -18,10 +24,22 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			select_structure()
-		if event.button_index == MOUSE_BUTTON_MIDDLE:
-			attack_structure()
-	pass
+			if currentMode == interactionMode.SELECT:
+				select_structure()
+			if currentMode == interactionMode.TARGETING and activeIndicator:
+				var pos = activeIndicator.global_position
+				$MiracleManager.cast(selectedMiracle, pos)
+				_remove_miracle_mode()
+		if event.button_index == MOUSE_BUTTON_MIDDLE and selectedStructure:
+			if selectedStructure.faction == StructureData.Owner.PLAYER:
+				attack_structure()
+func _process(_delta: float) -> void:
+	if !is_instance_valid(activeIndicator):
+		set_process(false)
+		return
+	var pos = ray_cast_ground()
+	if pos:
+		activeIndicator.global_position = pos + Vector3(0, 0.1, 0)
 func production_loop():
 	while true:
 		await get_tree().create_timer(1.0).timeout
@@ -34,12 +52,12 @@ func update_struc_prod():
 				s.units = min(s.units + s.data.levels[s.level]["productionRate"], s.data.levels[s.level]["maxUnits"])
 			else:
 				s.units = max(s.units - s.data.levels[s.level]["productionRate"], s.data.levels[s.level]["maxUnits"])
-		structureUpdated.emit(s)
+		structureUpdated.emit()
 func ray_cast_structure() -> Structure:
 	var mouse_pos = camera.get_viewport().get_mouse_position()
 	var ray_origin = camera.project_ray_origin(mouse_pos)
 	var ray_dir = camera.project_ray_normal(mouse_pos)
-	var ray_end = ray_origin + ray_dir * 1000
+	var ray_end = ray_origin + ray_dir * 2000
 	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
 	query.collision_mask = 2 #structures
 	var result = camera.get_world_3d().direct_space_state.intersect_ray(query)
@@ -49,6 +67,17 @@ func ray_cast_structure() -> Structure:
 		while node and not node.has_method("set_selected"):
 			node = node.get_parent()
 		return node
+	return null
+func ray_cast_ground() -> Variant: #I FUCKING NEED TO JOIN THESE TWO TOGETHER
+	var mouse_pos = camera.get_viewport().get_mouse_position()
+	var ray_origin = camera.project_ray_origin(mouse_pos)
+	var ray_dir = camera.project_ray_normal(mouse_pos)
+	var ray_end = ray_origin + ray_dir * 2000
+	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+	query.collision_mask = 1 
+	var result = camera.get_world_3d().direct_space_state.intersect_ray(query)
+	if result:
+		return result.position
 	return null
 func select_structure(): #can be a little better on the logic side, nothing to worry
 	var structure = ray_cast_structure()
@@ -65,13 +94,8 @@ func select_structure(): #can be a little better on the logic side, nothing to w
 		structureClicked.emit(false)
 func attack_structure():
 	attackedStructure = ray_cast_structure()
-	if attackedStructure and selectedStructure.faction == StructureData.Owner.PLAYER:
-		var value = selectedStructure.units / 2
-		if attackedStructure.faction != StructureData.Owner.PLAYER:
-			attackedStructure.update_units(value, 0, StructureData.Owner.PLAYER) #magic numbers that needs to be cleaned off with enums maybe
-		else:
-			attackedStructure.update_units(value, 1, StructureData.Owner.PLAYER)
-		selectedStructure.update_units(value, 0, StructureData.Owner.PLAYER)
+	if attackedStructure:
+		selectedStructure.send_troops(attackedStructure)
 func ai_enemy():
 	aiTimer = Timer.new()
 	add_child(aiTimer)
@@ -99,6 +123,22 @@ func ai_decision_tick():
 			bestTarget = target
 			
 	if bestTarget:
-		var value = chosenStructure.units / 2
-		bestTarget.update_units(value, 0, StructureData.Owner.ENEMY) #the problem with magic numbers again...
-		chosenStructure.update_units(value, 0, StructureData.Owner.ENEMY)
+		chosenStructure.send_troops(bestTarget)
+func _on_miracle_selected(miracle: MiracleData) -> void:
+	if selectedStructure:
+		selectedStructure.set_selected(false)
+		selectedStructure = null
+		structureClicked.emit(false)
+	selectedMiracle = miracle
+	currentMode = interactionMode.TARGETING
+	if !is_instance_valid(activeIndicator):
+		activeIndicator = targetIndicator.instantiate()
+		get_tree().current_scene.add_child(activeIndicator)
+		activeIndicator.set_radius(miracle.radius)
+		set_process(true)
+func _remove_miracle_mode():
+	if is_instance_valid(activeIndicator):
+		activeIndicator.queue_free()
+		activeIndicator = null
+	currentMode = interactionMode.SELECT
+	set_process(false)
